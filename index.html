@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurisation des OIV - Sécurisation des Opérateurs d'Importance Vitale</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barres & Effets Néon Top -->
+    <div class="top-bar"></div>
+
+    <!-- En-tête / Navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#oiv">Comprendre</a></li>
+                <li><a href="#reglementation">Réglementation</a></li>
+                <li><a href="#anssi">ANSSI</a></li>
+                <li><a href="#siiv">SIIV</a></li>
+                <li><a href="#menaces">Menaces</a></li>
+                <li><a href="#securisation">Sécurisation</a></li>
+                <li><a href="#it-ot">IT / OT</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#incidents">Incidents</a></li>
+                <li><a href="#gouvernance">Gouvernance</a></li>
+                <li><a href="#references">Sources</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. ACCUEIL -->
+        <section id="accueil" class="hero">
+            <div class="hero-text">
+                <h1>Sécurisation des Opérateurs d'Importance Vitale (OIV)</h1>
+                <p class="subtitle">Les Opérateurs d’Importance Vitale (OIV) assurent des activités essentielles au fonctionnement de la Nation, dans des domaines tels que l’énergie, les transports, les télécommunications, l’eau ou la santé. Face à la multiplication des cybermenaces, la protection de leurs infrastructures et de leurs systèmes d’information constitue un enjeu majeur de sécurité. Mais comment identifier les risques et quelles mesures mettre en place pour assurer la sécurité et la continuité des activités des OIV ? Ce site présente les OIV, leur cadre réglementaire, le rôle de l’ANSSI, les SIIV, les principales menaces ainsi que les solutions techniques et organisationnelles permettant de les sécuriser.</p>
+            </div>
+            <div class="hero-image">
+                <img src="images/oiv-hero.jpg" alt="Infrastructures critiques et cybersécurité" onerror="this.src='https://via.placeholder.com/600x350/14092b/a855f7?text=Cyber+Infrastructures+OIV'">
+            </div>
+        </section>
+
+        <!-- 1. COMPRENDRE LES OIV -->
+        <section id="oiv">
+            <h2>1. Comprendre les OIV</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Qu'est-ce qu'un OIV ?</h3>
+                    <p>Un Opérateur d'Importance Vitale (OIV)  est une organisation publique ou privée désignée par l'État car elle exerce des activités indispensables à la survie de la Nation ou à la sécurité de la population.Le Code de la défense prévoit notamment que sont concernés les opérateurs dont les installations ou ouvrages, en cas de dommage, d'indisponibilité ou de destruction résultant notamment d'un acte de malveillance, de sabotage ou de terrorisme, pourraient affecter gravement le potentiel économique ou de défense, la sécurité ou la capacité de survie de la Nation, ou encore la santé ou la vie de la population.
+
+Un OIV n'est donc pas simplement une entreprise « importante ». Il s'agit d'un opérateur identifié par l'État en raison de l'importance de ses activités et des conséquences potentielles de leur interruption.</p>
+                </div>
+                <div class="card">
+                    <h3>Les secteurs d’importance vitale</h3>
+                    <p>OLes OIV interviennent dans des secteurs regroupant des activités considérées comme indispensables. Le Code de la défense définit un secteur d'activités d'importance vitale comme un ensemble d'activités concourant à un même objectif et fournissant notamment des biens ou services indispensables aux besoins essentiels de la population, à l'exercice de l'autorité de l'État, au fonctionnement de l'économie, au maintien du potentiel de défense ou à la sécurité de la Nation.
+
+Parmi les domaines concernés, on retrouve notamment :
+
+Énergie : production et distribution d'électricité, de gaz ou de pétrole ;
+Eau : production et distribution d'eau potable ;
+Télécommunications : infrastructures et services de communication essentiels ;
+Transports : infrastructures et services nécessaires à la circulation des personnes et des marchandises ;
+Santé : infrastructures et activités essentielles à la prise en charge de la population ;
+Activités économiques et financières : certaines infrastructures indispensables au fonctionnement de l'économie ;
+Défense et sécurité : activités contribuant directement à la défense et à la sécurité nationale.
+
+La liste exacte des secteurs d'activités d'importance vitale est fixée par le Premier ministre par arrêté.</p>
+                </div>
+            </div>
+         <div class="card highlight">
+            <h3>Comment un opérateur devient-il un OIV ?</h3>
+            <p>La désignation d'un OIV relève de l'autorité administrative. Pour chaque secteur d'activités d'importance vitale, les opérateurs sont désignés par un arrêté du ministre coordonnateur du secteur, après consultation des autorités compétentes.</p>
+            <p>Cette désignation entraîne des responsabilités particulières en matière de protection des installations et des systèmes nécessaires à l'activité de l'opérateur.</p>
+        </div>
+        <h3 style="margin-top: 25px;">Distinction des notions clés</h3>
+    <div class="card-grid">
+        <div class="card">
+            <h3>OIV (Opérateur)</h3>
+            <p>L'<strong>OIV</strong> est l'opérateur, public ou privé, qui exerce une activité d'importance vitale.</p>
+        </div>
+
+        <div class="card">
+            <h3>Installation ou Ouvrage d’IV</h3>
+            <p>Il s'agit d'une installation ou d'un ouvrage utilisé dans le cadre de cette activité et dont l'endommagement, l'indisponibilité ou la destruction pourrait avoir des conséquences graves.</p>
+        </div>
+
+        <div class="card">
+            <h3>Point d’Importance Vitale (PIV)</h3>
+            <p>Un établissement, une installation ou un ouvrage répondant aux critères prévus par le Code de la défense peut être qualifié de <strong>Point d'Importance Vitale (PIV)</strong>. Chaque OIV doit notamment établir une liste des PIV relevant de son activité.</p>
+        </div>
+    </div>
+
+    <!-- OIV vs SIIV -->
+    <h3 style="margin-top: 30px;">OIV et SIIV : Quelle différence ?</h3>
+    <div class="box info">
+        <p>Il ne faut pas confondre <strong>OIV</strong> et <strong>SIIV</strong>.</p>
+        <p>Un <strong>OIV</strong> est l'opérateur qui exerce une activité d'importance vitale.</p>
+        <p>Un <strong>SIIV (Système d'Information d'Importance Vitale)</strong> est un système d'information dont la sécurité est particulièrement importante pour la continuité de cette activité vitale.</p>
+        <p>Un SIIV peut par exemple participer à :</p>
+        <ul style="margin-top: 10px; margin-left: 20px;">
+            <li>La supervision d'une infrastructure ;</li>
+            <li>La gestion d'un réseau ;</li>
+            <li>Le contrôle d'un processus industriel ;</li>
+            <li>La surveillance d'équipements ;</li>
+            <li>La gestion de données indispensables au fonctionnement de l'activité.</li>
+        </ul>
+        <p style="margin-top: 10px;">Cette distinction est essentielle pour comprendre la cybersécurité des OIV : protéger l'OIV implique notamment de protéger les systèmes d'information qui contribuent à ses activités vitales.</p>
+    </div>
+
+    <!-- Pourquoi les OIV sont-ils particulièrement protégés ? -->
+    <h3 style="margin-top: 30px;">Pourquoi les OIV sont-ils particulièrement protégés ?</h3>
+    <p>La dépendance croissante aux systèmes numériques augmente les conséquences potentielles d'une cyberattaque. Une attaque contre un système informatique peut, selon le contexte, entraîner la chaîne de conséquences suivante :</p>
+
+    <!-- Schéma dynamique de la chaîne d'attaque -->
+    <div class="attack-chain">
+        <div class="chain-step">Cyberattaque</div>
+        <div class="chain-arrow">➔</div>
+        <div class="chain-step">Compromission du système</div>
+        <div class="chain-arrow">➔</div>
+        <div class="chain-step">Perturbation de l'activité</div>
+        <div class="chain-arrow">➔</div>
+        <div class="chain-step">Interruption du service</div>
+        <div class="chain-arrow">➔</div>
+        <div class="chain-step danger-step">Conséquences pour la population / la Nation</div>
+    </div>
+
+    <p style="margin-top: 20px;">La protection des OIV repose donc sur plusieurs dimensions complémentaires :</p>
+    <div class="tags" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+        <span class="tag">Protection physique</span>
+        <span class="tag">Cybersécurité</span>
+        <span class="tag">Organisation</span>
+        <span class="tag">Réglementation</span>
+        <span class="tag">Gestion des incidents</span>
+    </div>
+</section>
+
+        <!-- 2. RÉGLEMENTATION -->
+        <section id="reglementation">
+            <h2>2. Réglementation — Le cadre juridique</h2>
+            <p>La sécurité des SIIV est encadrée par la loi et le non-respect de certaines obligations peut entraîner des sanctions.</p>
+            <ul>
+                <li><strong>Loi de Programmation Militaire (LPM) :</strong> Fixe les règles de cybersécurité obligatoires pour les OIV.</li>
+                <li><strong>Code de la Défense :</strong> Définit le cadre du dispositif SAIV et le pouvoir de contrôle des autorités.</li>
+                <li><strong>NIS / NIS 2 :</strong> Directives européennes élargissant les obligations de cybersécurité aux Entités Essentielles (EE) et Importantes (EI).</li>
+                <li><strong>Obligations :</strong> Déclaration des SIIV, mise en œuvre de règles de sécurité, notification immédiate des incidents à l'ANSSI, soumission à des contrôles et audits.</li>
+            </ul>
+        </section>
+
+        <!-- 3. ANSSI -->
+        <section id="anssi">
+            <h2>3. L'ANSSI — Autorité nationale de sécurité</h2>
+            <p>L'<strong>Agence Nationale de la Sécurité des Systèmes d'Information (ANSSI)</strong> pilote la défense cyber de la France.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Missions clés</h3>
+                    <ul>
+                        <li>Définition des règles de sécurité pour les OIV.</li>
+                        <li>Accompagnement et qualification des prestataires (PASSI, PDIS, PRIS).</li>
+                        <li>Contrôle et audits de conformité des SIIV.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>CERT-FR</h3>
+                    <p>Le centre de réponse aux incidents de l'État. Il gère la détection globale, la publication de bulletins d'alerte et l'assistance en cas de crise majeure affectant un OIV.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SIIV -->
+        <section id="siiv">
+            <h2> 4. Les Systèmes d'Information d'Importance Vitale (SIIV)</h2>
+            <p>Un SIIV est identifié par l'OIV après analyse d'impact sur ses activités vitales.</p>
+            <div class="steps">
+                <div class="step"><span>1</span> <strong>Identification :</strong> Analyse des risques et impacts sur l'activité vitale.</div>
+                <div class="step"><span>2</span> <strong>Cartographie :</strong> Recensement exhaustif de tous les composants matériels, logiciels et flux.</div>
+                <div class="step"><span>3</span> <strong>Déclaration :</strong> Notification confidentielle à l'ANSSI du périmètre du SIIV.</div>
+                <div class="step"><span>4</span> <strong>Homologation :</strong> Validation formelle du niveau de sécurité par l'autorité qualifiée.</div>
+            </div>
+        </section>
+
+        <!-- 5. MENACES & RISQUES -->
+        <section id="menaces">
+            <h2>️ 5. Menaces & Risques Cyber</h2>
+            <div class="card-grid">
+                <div class="card danger">
+                    <h3>Vecteurs d'attaque</h3>
+                    <ul>
+                        <li>Ransomware & Malware ciblé</li>
+                        <li>Sabotage de systèmes industriels (ex: Stuxnet, Industroyer)</li>
+                        <li>Attaques de la Supply Chain (sous-traitants)</li>
+                        <li>Espionnage étatique & vol de données</li>
+                        <li>Attaques DDoS sur la gestion de service</li>
+                    </ul>
+                </div>
+                <div class="card danger">
+                    <h3>Conséquences majeures</h3>
+                    <ul>
+                        <li>Rupture d'approvisionnement (Eau, Énergie)</li>
+                        <li>Paralysie des transports nationaux</li>
+                        <li>Mise en danger de vies humaines (Hôpitaux)</li>
+                        <li>Effets en cascade sur l'économie nationale</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SÉCURISATION (PARTIE TECHNIQUE) -->
+        <section id="securisation">
+            <h2> 6. Sécurisation — Mesures techniques</h2>
+            <p>Exigences techniques imposées par l'ANSSI pour la protection d'un SIIV :</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Contrôle d'accès & Identités</h3>
+                    <p>Authentification multifacteur (MFA) obligatoire, principe du moindre privilège, comptes individuels hermétiques, gestion stricte des privilèges d'administration.</p>
+                </div>
+                <div class="card">
+                    <h3>Supervision & Détection</h3>
+                    <p>Journalisation centralisée et inaltérable, déploiement de sondes de détection (IDS/IPS) qualifiées par l'ANSSI, remontée des événements vers un SOC/SIEM.</p>
+                </div>
+                <div class="card">
+                    <h3>Maintien en Condition de Sécurité (MCS)</h3>
+                    <p>Durcissement (hardening) des OS et équipements, gestion rigoureuse des correctifs de sécurité, sauvegardes déconnectées (offline) et testées.</p>
+                </div>
+            </div>
+        </section>
+        <!-- 7. IT / OT -->
+        <section id="it-ot">
+            <h2> 7. IT vs OT</h2>
+            <p>Dans les infrastructures critiques, les systèmes informatiques ne servent pas uniquement à stocker et traiter des données. Certains systèmes permettent également de surveiller et contrôler directement des équipements physiques. On distingue ainsi deux environnements principaux : l’<strong>IT</strong> et l’<strong>OT</strong>.</p>
+            <div class="card-grid" style="margin-top: 20px;">
+        <div class="card">
+            <h3> IT — Information Technology</h3>
+            <p>L’IT regroupe les technologies utilisées pour gérer, stocker et transmettre les informations d’une organisation. L’objectif principal est de gérer les données et les systèmes informatiques nécessaires au fonctionnement de l'entreprise.</p>
+            <ul>
+                <li>🖥️ Postes utilisateurs</li>
+                <li>🗄️ Serveurs de gestion</li>
+                <li>🌐 Réseaux informatiques d'entreprise</li>
+                <li>📊 Bases de données</li>
+                <li>💾 Applications et services informatiques</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3> OT — Operational Technology</h3>
+            <p>L’OT désigne les technologies utilisées pour surveiller, contrôler ou automatiser des processus physiques et industriels (ex: chaîne de production, réseau énergétique, distribution d'eau).</p>
+            <ul>
+                <li>⚙️ Automates industriels (PLC)</li>
+                <li>🖥️ Systèmes SCADA & IHM</li>
+                <li>📡 Capteurs & Actionneurs</li>
+                <li>🔧 Systèmes de contrôle-commande</li>
+                <li>🏭 Machines et équipements industriels</li>
+            </ul>
+        </div>
+    </div>
+    <h3 style="margin-top: 30px;">Tableau comparatif IT vs OT</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Informatique de Gestion (IT)</th>
+                        <th>Informatique Industrielle (OT)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Priorité (Triade)</strong></td>
+                        <td>Confidentialité > Intégrité > Disponibilité</td>
+                        <td>Disponibilité > Intégrité > Confidentialité</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Équipements</strong></td>
+                        <td>Serveurs, PC, Switchs Ethernet standard</td>
+                        <td>Automates (API/PLC), SCADA, Capteurs, IHM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cycle de vie</strong></td>
+                        <td>3 à 5 ans (mises à jour fréquentes)</td>
+                        <td>15 à 30 ans (correctifs complexes)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Impératif OIV</strong></td>
+                        <td colspan="2">Isolation stricte : Empêcher une attaque provenant du réseau IT de traverser vers l'OT.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 8. ARCHITECTURE D'UN SIIV -->
+        <section id="architecture">
+            <h2> 8. Architecture Réseau d'un SIIV Type</h2>
+            <p>Voici la représentation en couches étanches avec cloisonnement par pare-feu :</p>
+
+            <div class="code-block">
+<pre>
+                  [ INTERNET / RÉSEAU EXTERNE ]
+                                │
+                        ┌───────┴───────┐
+                        │ FIREWALL EXT. │
+                        └───────┬───────┘
+                                │
+                      ┌─────────┴─────────┐
+                      │    ZONE DMZ       │ (Relais, Mail, VPN)
+                      └─────────┬─────────┘
+                                │
+                        ┌───────┴───────┐
+                        │ FIREWALL INT. │
+                        └───────┬───────┘
+                                │
+                      ┌─────────┴─────────┐
+                      │    RÉSEAU IT      │ (Gestion, Bureautique)
+                      └─────────┬─────────┘
+                                │
+                  ┌─────────────┴─────────────┐
+                  │ FIREWALL INDUSTRIEL (OT)  │
+                  └─────────────┬─────────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              │                 │                 │
+     ┌────────┴────────┐ ┌──────┴───────┐ ┌───────┴────────┐
+     │ Serveurs SCADA  │ │ Automates    │ │ Capteurs /     │
+     │ & Supervision   │ │ Programmables│ │ Actionneurs    │
+     └─────────────────┘ └──────────────┘ └────────────────┘
+</pre>
+            </div>
+            <p><em>Règle d'or : Aucun flux direct entre la DMZ externe ou Internet et la zone OT SCADA/Automates.</em></p>
+        </section>
+
+        <!-- 10. INCIDENTS -->
+        <section id="incidents">
+            <h2> 10. Gestion des Incidents</h2>
+            <div class="timeline">
+                <div class="timeline-item"><strong>1. Détection & Qualification :</strong> Levée de doute via les alertes SIEM / SOC / Sondes.</div>
+                <div class="timeline-item"><strong>2. Notification ANSSI :</strong> Obligation légale de signaler immédiatement tout incident significatif.</div>
+                <div class="timeline-item"><strong>3. Confinement :</strong> Isolation de l'équipement ou du segment réseau impacté.</div>
+                <div class="timeline-item"><strong>4. Éradication & Restauration :</strong> Nettoyage des menaces et reconstruction depuis des sauvegardes saines.</div>
+                <div class="timeline-item"><strong>5. Retour d'expérience (RETEX) :</strong> Analyse post-crise pour durcir les procédures.</div>
+            </div>
+        </section>
+
+        <!-- 11. GOUVERNANCE -->
+        <section id="gouvernance">
+            <h2> 11. Organisation & Gouvernance</h2>
+            <p>La cybersécurité repose sur l'humain et les processus :</p>
+            <ul>
+                <li><strong>PSSI (Politique de Sécurité des SI) :</strong> Document stratégique imposé et décliné pour le SIIV.</li>
+                <li><strong>RSSI (Resp. Sécurité SI) :</strong> Pilote la mise en conformité et la relation avec l'ANSSI.</li>
+                <li><strong>SOC / CERT :</strong> Équipes opérationnelles de surveillance et de réaction.</li>
+                <li><strong>Sensibilisation :</strong> Formation continue des personnels contre l'ingénierie sociale (phishing).</li>
+            </ul>
+        </section>
+
+        <!-- 12. SOURCES & REFERENCES -->
+        <section id="references">
+            <h2> 12. Références & Sources</h2>
+            <p>Sources officielles et réglementaires utilisées :</p>
+            <ul class="sources-list">
+                <li><a href="https://ssi.gouv.fr/" target="_blank">ANSSI - Agence Nationale de la Sécurité des Systèmes d'Information</a></li>
+                <li><a href="https://www.legifrance.gouv.fr/" target="_blank">Légifrance - Code de la Défense & Loi de Programmation Militaire (LPM)</a></li>
+                <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank">CERT-FR - Centre d'alertes et de réactivité cyber</a></li>
+                <li><a href="https://cyber.gouv.fr/la-directive-nis-2" target="_blank">ANSSI - Cadre de la Directive Européenne NIS 2</a></li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Projet OIV Security - Réalisé par ATIDEMEKPE Princesse et AKONDZO Coeur-osée</p>
+    </footer>
+
+</body>
+</html>
