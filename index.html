@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#oiv">Comprendre</a></li>
-                <li><a href="#reglementation">Réglementation</a></li>
+                <li><a href="#reglementation">Règlementation</a></li>
                 <li><a href="#anssi">ANSSI</a></li>
                 <li><a href="#siiv">SIIV</a></li>
                 <li><a href="#menaces">Menaces</a></li>
@@ -138,7 +138,7 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
 
         <!-- 2. RÉGLEMENTATION -->
         <section id="reglementation">
-            <h2>2. Réglementation — Le cadre juridique</h2>
+            <h2>2. Règlementation — Le cadre juridique</h2>
             <p>La sécurité des SIIV est encadrée par la loi et le non-respect de certaines obligations peut entraîner des sanctions.</p>
             <ul>
                 <li><strong>Loi de Programmation Militaire (LPM) :</strong> Fixe les règles de cybersécurité obligatoires pour les OIV.</li>
@@ -205,55 +205,170 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
                 </div>
             </div>
         </section>
-
-        <!-- 6. SÉCURISATION (PARTIE TECHNIQUE) -->
+<!-- 6. SÉCURISATION (PARTIE TECHNIQUE DÉTAILLÉE) -->
         <section id="securisation">
-            <h2> 6. Sécurisation — Mesures techniques</h2>
-            <p>Exigences techniques imposées par l'ANSSI pour la protection d'un SIIV :</p>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Contrôle d'accès & Identités</h3>
-                    <p>Authentification multifacteur (MFA) obligatoire, principe du moindre privilège, comptes individuels hermétiques, gestion stricte des privilèges d'administration.</p>
-                </div>
-                <div class="card">
-                    <h3>Supervision & Détection</h3>
-                    <p>Journalisation centralisée et inaltérable, déploiement de sondes de détection (IDS/IPS) qualifiées par l'ANSSI, remontée des événements vers un SOC/SIEM.</p>
-                </div>
-                <div class="card">
-                    <h3>Maintien en Condition de Sécurité (MCS)</h3>
-                    <p>Durcissement (hardening) des OS et équipements, gestion rigoureuse des correctifs de sécurité, sauvegardes déconnectées (offline) et testées.</p>
-                </div>
+            <h2>6. Sécurisation technique d’un SIIV</h2>
+            <p>La sécurisation d’un système d’information d’importance vitale (SIIV) repose sur plusieurs mécanismes complémentaires. L’objectif n’est pas seulement d’empêcher une attaque, mais également de limiter sa propagation, détecter les comportements anormaux, réagir rapidement et permettre la reprise de l’activité. Cette approche repose sur le principe de <strong>défense en profondeur</strong>.</p>
+
+            <h3>6.1 Architecture réseau sécurisée</h3>
+            <p>Une architecture sécurisée sépare les différents niveaux du système afin de limiter les communications entre les zones. Une compromission d’un poste informatique ne doit pas permettre automatiquement d’atteindre les systèmes industriels.</p>
+
+            <h3>6.2 La segmentation réseau et 6.3 Les VLAN</h3>
+            <p>La segmentation consiste à diviser l’infrastructure en plusieurs zones ayant des fonctions différentes à l'aide de VLAN, d'ACL et de pare-feux. Un VLAN (Virtual Local Area Network) permet de créer plusieurs réseaux logiques indépendants sur une même infrastructure physique afin de limiter le domaine de diffusion. voici un exemple ci-dessous</p>
+            <div class="code-block">
+<pre>
+VLAN 10 — Administration  : 192.168.10.0/24
+VLAN 20 — Utilisateurs IT : 192.168.20.0/24
+VLAN 30 — Serveurs        : 192.168.30.0/24
+VLAN 40 — OT              : 192.168.40.0/24
+</pre>
+            </div>
+
+            <h3>6.4 Les ACL & 6.5 Le pare-feu</h3>
+            <p>Les ACL (Access Control Lists) et les pare-feux définissent les flux autorisés selon le principe du moindre privilège (adresse IP, port, protocole, application). Exemple de filtrage :</p>
+            <div class="code-block">
+<pre>
+192.168.20.0/24 (IT) ──► FIREWALL ──► 192.168.40.0/24 (OT)
+                              │
+                              ├── HTTPS vers serveur autorisé ──► AUTORISÉ
+                              ├── Service industriel requis  ──► AUTORISÉ
+                              └── Connexion non prévue        ──► BLOQUÉ
+</pre>
+            </div>
+
+            <h3>6.6 La DMZ (Demilitarized Zone)</h3>
+            <p>La DMZ accueille les services exposés ou devant échanger entre différentes zones de confiance distinctes sans autoriser de flux direct entre Internet et le réseau interne critique.</p>
+            <div class="code-block">
+<pre>
+INTERNET ──► FIREWALL ──► DMZ (Web, Relais) ──► FIREWALL INTERNE ──► RÉSEAUX INTERNES
+</pre>
+            </div>
+
+            <h3>6.7 Le bastion d’administration</h3>
+            <p>Un bastion centralise, contrôle et chiffre les accès d'administration vers les équipements sensibles.</p>
+            <div class="code-block">
+<pre>
+Poste administrateur ──► BASTION ──┬──► SCADA
+                                   ├──► Serveurs
+                                   └──► Équipements réseau
+</pre>
+            </div>
+
+            <h3>6.8 Authentification et contrôle des accès</h3>
+            <p>S'appuie sur l'authentification multifacteur (MFA), la séparation des comptes utilisateurs et administrateurs, des comptes individuels nominatifs et une revue régulière des droits.</p>
+
+            <h3>6.9 Supervision et détection (IDS / SIEM)</h3>
+            <p>La prévention est complétée par une surveillance continue : analyse du réseau par des IDS et centralisation des journaux dans un SIEM pour détecter les anomalies.</p>
+            <div class="code-block">
+<pre>
+Firewall ───────┐
+Serveurs ───────┼──► SIEM ──► Analyse ──► Alerte
+Postes ─────────┤
+IDS ────────────┘
+</pre>
+            </div>
+
+            <h3>6.10 Protection des hôtes, Sauvegardes & Continuity</h3>
+            <p>Mise en place d'EDR, gestion des patchs, durcissement du système et stratégie de sauvegarde isolée (copie protégée/hors ligne avec tests de restauration réguliers).</p>
+
+            <h3 style="margin-top: 25px;">Synthèse : Schéma de Défense en Profondeur</h3>
+            <div class="code-block">
+<pre>
+                 DÉFENSE EN PROFONDEUR
+
+                    UTILISATEURS
+                         │
+                  Authentification (MFA)
+                         │
+                         ▼
+                    POSTES IT
+                         │
+                  Protection / EDR
+                         │
+                         ▼
+                    RÉSEAU IT
+                         │
+                  VLAN / ACL
+                         │
+                         ▼
+                       DMZ
+                         │
+                         ▼
+                  FIREWALL IT/OT
+                         │
+                         ▼
+                    RÉSEAU OT
+                         │
+                  Supervision / IDS
+                         │
+                         ▼
+                  SCADA / AUTOMATES
+</pre>
             </div>
         </section>
+
         <!-- 7. IT / OT -->
         <section id="it-ot">
-            <h2> 7. IT vs OT</h2>
-            <p>Dans les infrastructures critiques, les systèmes informatiques ne servent pas uniquement à stocker et traiter des données. Certains systèmes permettent également de surveiller et contrôler directement des équipements physiques. On distingue ainsi deux environnements principaux : l’<strong>IT</strong> et l’<strong>OT</strong>.</p>
+            <h2>7. IT vs OT</h2>
+            <p>Dans les infrastructures critiques, les systèmes informatiques de gestion (IT) coexistent avec l'informatique industrielle (OT) chargée du contrôle des processus physiques.</p>
+
             <div class="card-grid" style="margin-top: 20px;">
-        <div class="card">
-            <h3> IT — Information Technology</h3>
-            <p>L’IT regroupe les technologies utilisées pour gérer, stocker et transmettre les informations d’une organisation. L’objectif principal est de gérer les données et les systèmes informatiques nécessaires au fonctionnement de l'entreprise.</p>
-            <ul>
-                <li>🖥️ Postes utilisateurs</li>
-                <li>🗄️ Serveurs de gestion</li>
-                <li>🌐 Réseaux informatiques d'entreprise</li>
-                <li>📊 Bases de données</li>
-                <li>💾 Applications et services informatiques</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3> OT — Operational Technology</h3>
-            <p>L’OT désigne les technologies utilisées pour surveiller, contrôler ou automatiser des processus physiques et industriels (ex: chaîne de production, réseau énergétique, distribution d'eau).</p>
-            <ul>
-                <li>⚙️ Automates industriels (PLC)</li>
-                <li>🖥️ Systèmes SCADA & IHM</li>
-                <li>📡 Capteurs & Actionneurs</li>
-                <li>🔧 Systèmes de contrôle-commande</li>
-                <li>🏭 Machines et équipements industriels</li>
-            </ul>
-        </div>
-    </div>
-    <h3 style="margin-top: 30px;">Tableau comparatif IT vs OT</h3>
+                <div class="card">
+                    <h3> IT — Information Technology</h3>
+                    <p>L’IT regroupe les technologies utilisées pour gérer, stocker et transmettre les informations d’une organisation.</p>
+                    <ul>
+                        <li>🖥️ Postes utilisateurs</li>
+                        <li>🗄️ Serveurs de gestion</li>
+                        <li>🌐 Réseaux informatiques d'entreprise</li>
+                        <li>📊 Bases de données</li>
+                        <li>💾 Applications et services informatiques</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3> OT — Operational Technology</h3>
+                    <p>L’OT désigne les technologies utilisées pour surveiller, contrôler ou automatiser des processus physiques et industriels.</p>
+                    <ul>
+                        <li>⚙️ Automates industriels (PLC)</li>
+                        <li>🖥️ Systèmes SCADA & IHM</li>
+                        <li>📡 Capteurs & Actionneurs</li>
+                        <li>🔧 Systèmes de contrôle-commande</li>
+                        <li>🏭 Machines et équipements industriels</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 25px;">Schéma d'interconnexion cloisonnée IT / OT</h3>
+            <p>Le contrôle strict des communications entre le monde IT et le monde OT est indispensable :</p>
+            <div class="code-block">
+<pre>
+        ┌───────────────────────────────────────┐
+        │               RÉSEAU IT               │
+        │      (Postes utilisateurs, ERP)       │
+        └───────────────────┬───────────────────┘
+                            │
+                            ▼
+        ┌───────────────────────────────────────┐
+        │            FIREWALL IT / OT           │
+        └───────────────────┬───────────────────┘
+                            │
+        ┌───────────────────┴───────────────────┐
+        │               RÉSEAU OT               │
+        │        ┌─────────────────────┐        │
+        │        │   Système SCADA     │        │
+        │        └──────────┬──────────┘        │
+        │                   │                   │
+        │        ┌──────────┴──────────┐        │
+        │        │     Automates       │        │
+        │        └──────────┬──────────┘        │
+        │                   │                   │
+        │        ┌──────────┴──────────┐        │
+        │        │ Capteurs/Actionneurs│        │
+        │        └─────────────────────┘        │
+        └───────────────────────────────────────┘
+</pre>
+            </div>
+
+            <h3 style="margin-top: 25px;">Tableau comparatif IT vs OT</h3>
             <table>
                 <thead>
                     <tr>
@@ -288,47 +403,50 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
 
         <!-- 8. ARCHITECTURE D'UN SIIV -->
         <section id="architecture">
-            <h2> 8. Architecture Réseau d'un SIIV Type</h2>
-            <p>Voici la représentation en couches étanches avec cloisonnement par pare-feu :</p>
+            <h2>8. Architecture Réseau d'un SIIV Type</h2>
+            <p>Voici la représentation en zones étanches avec cloisonnement par pare-feu :</p>
 
             <div class="code-block">
 <pre>
-                  [ INTERNET / RÉSEAU EXTERNE ]
-                                │
-                        ┌───────┴───────┐
-                        │ FIREWALL EXT. │
-                        └───────┬───────┘
-                                │
-                      ┌─────────┴─────────┐
-                      │    ZONE DMZ       │ (Relais, Mail, VPN)
-                      └─────────┬─────────┘
-                                │
-                        ┌───────┴───────┐
-                        │ FIREWALL INT. │
-                        └───────┬───────┘
-                                │
-                      ┌─────────┴─────────┐
-                      │    RÉSEAU IT      │ (Gestion, Bureautique)
-                      └─────────┬─────────┘
-                                │
-                  ┌─────────────┴─────────────┐
-                  │ FIREWALL INDUSTRIEL (OT)  │
-                  └─────────────┬─────────────┘
-                                │
-              ┌─────────────────┼─────────────────┐
-              │                 │                 │
-     ┌────────┴────────┐ ┌──────┴───────┐ ┌───────┴────────┐
-     │ Serveurs SCADA  │ │ Automates    │ │ Capteurs /     │
-     │ & Supervision   │ │ Programmables│ │ Actionneurs    │
-     └─────────────────┘ └──────────────┘ └────────────────┘
+                         INTERNET
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │    FIREWALL     │
+                    │  périmétrique   │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │       DMZ       │
+                    │ Services exposés│
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ FIREWALL IT / OT│
+                    └───────┬─────────┘
+                            │
+              ┌─────────────┴─────────────┐
+              ▼                           ▼
+        ┌─────────────┐             ┌─────────────┐
+        │     IT      │             │     OT      │
+        │ VLAN / ACL  │             │ VLAN / ACL  │
+        └─────────────┘             └──────┬──────┘
+                                           │
+                                    ┌──────┴──────┐
+                                    ▼             ▼
+                                  SCADA       Automates
+                                                  │
+                                           Capteurs /
+                                           Actionneurs
 </pre>
             </div>
-            <p><em>Règle d'or : Aucun flux direct entre la DMZ externe ou Internet et la zone OT SCADA/Automates.</em></p>
         </section>
 
-        <!-- 10. INCIDENTS -->
+        <!-- 9. INCIDENTS -->
         <section id="incidents">
-            <h2> 10. Gestion des Incidents</h2>
+            <h2> 9. Gestion des Incidents</h2>
             <div class="timeline">
                 <div class="timeline-item"><strong>1. Détection & Qualification :</strong> Levée de doute via les alertes SIEM / SOC / Sondes.</div>
                 <div class="timeline-item"><strong>2. Notification ANSSI :</strong> Obligation légale de signaler immédiatement tout incident significatif.</div>
@@ -338,9 +456,9 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
             </div>
         </section>
 
-        <!-- 11. GOUVERNANCE -->
+        <!-- 10. GOUVERNANCE -->
         <section id="gouvernance">
-            <h2> 11. Organisation & Gouvernance</h2>
+            <h2> 10. Organisation & Gouvernance</h2>
             <p>La cybersécurité repose sur l'humain et les processus :</p>
             <ul>
                 <li><strong>PSSI (Politique de Sécurité des SI) :</strong> Document stratégique imposé et décliné pour le SIIV.</li>
@@ -350,9 +468,9 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
             </ul>
         </section>
 
-        <!-- 12. SOURCES & REFERENCES -->
+        <!-- 11. SOURCES & REFERENCES -->
         <section id="references">
-            <h2> 12. Références & Sources</h2>
+            <h2> 11. Références & Sources</h2>
             <p>Sources officielles et réglementaires utilisées :</p>
             <ul class="sources-list">
                 <li><a href="https://ssi.gouv.fr/" target="_blank">ANSSI - Agence Nationale de la Sécurité des Systèmes d'Information</a></li>
@@ -365,7 +483,7 @@ La liste exacte des secteurs d'activités d'importance vitale est fixée par le 
     </div>
 
     <footer>
-        <p>&copy; 2026 - Projet OIV Security - Réalisé par ATIDEMEKPE Princesse et AKONDZO Coeur-osée</p>
+        <p>&copy; 2026 - Projet OIV Sécurisation des OIV - Réalisé par ATIDEMEKPE Princesse et AKONDZO Coeur-osée</p>
     </footer>
 
 </body>
